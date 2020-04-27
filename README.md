@@ -62,29 +62,18 @@ KEY        | TYPE                   | REFERENCE     | REQUIRED | VALIDATIONS    
 name       | string                 |               | yes      |                          |
 email      | string                 |               | yes      | RegExp                   |
 password   | string                 |               | yes      | min 6                    |
-favourites | [ObjectId]             | articles      |          |                          |
-
+is_admin   | boolean | | | default: false |
 
 ## Articles
 
 KEY         | TYPE          | EMBEDED        | REQUIRED |
 ------------|---------------|----------------|----------|
-img_url     | [String]      |                | yes      |
 title       | string        |                | yes      |
 subtitle    | string        |                | yes      |
 text        | string        |                | yes      |
-created_at  | date          |                | yes      |
+created_at  | date          |                |          |
 address     | string        |                |          |
-tags        | [String]      |                | yes      |
-comments    | [ObjectId]    | comments       |          |
 
-## Comments
-
-KEY         | TYPE           | REFERENCE | REQUIRED |   DEFAULT    |
-------------|----------------|-----------|----------|--------------|
-user        | ObjectId       | Users     | yes      | current_user |
-text        | string         |           | yes      |              |
-created_at  | date           |           | yes      |              |
 
 # API ROUTES
 Port will be defined in .env file.
@@ -93,8 +82,9 @@ Please note that all routes in this API should be called with the `/api` prefix 
 ```
 POST http://localhost:3000/api/auth/signup
 ```
-## AUTHENTICATION ENDPOINTS
 
+## AUTHENTICATION ENDPOINTS
+> token required: NO
 METHOD | URL                | What does it do
 -------|--------------------|---------------------------------
 POST   | `auth/signup`      | Create a new account
@@ -102,31 +92,10 @@ POST   | `auth/login`       | Authenticates a user
 
 ## ARTICLE ENDPOINTS
 
-METHOD | URL                    | What does it do
--------|------------------------|---------------------------------
-GET    | `articles`             | Get All Articles
-GET    | `articles/:articleId`  | Read One Article
-
-## ADMIN ENDPOINTS (Authenticated)
-
-All these endpoints require a `token` to be sent within the HTTP Headers.
-METHOD | URL                          | What does it do
--------|------------------------------|---------------------------------
-POST   | `admin/articles`             | Create Article
-PUT    | `admin/articles/:articleId`  | Update Article
-DELETE | `admin/articles/:articleId`  | Delete Article
-
-## USER ENDPOINTS (Authenticated)
-
-All these endpoints require a `token` to be sent within the HTTP Headers.
-METHOD | URL                                                         | What does it do
--------|-------------------------------------------------------------|---------------------------------
-POST   | `me/favourites/:articleId`                                  | Add article to user favourites.
-GET    | `me/favourites`                                             | Show all favourites user articles.
-DELETE | `me/favourites/:articleId`                                  | Remove article from favourites.
-POST   | `me/articles/:articleId/comments`                           | Add comment to an article.
-PUT    | `me/articles/:articleId/comments/:commentId`                | Update comment.
-DELETE | `me/articles/:articleId/comments/:commentId`                | Delete comment.
-GET    | `me/profile`                                                | Get info from User
-PUT    | `me/profile`                                                | Modify User info
-DELETE | `me/profile`                                                | Delete user account
+METHOD | URL              | AUTH | What does it do
+-------|------------------|------|---------------------------
+GET    | `/articles`      | NO   | Get All Articles
+POST   | `/articles`      | YES  | Create Article
+GET    | `/articles/:id`  | NO   | Read One Article
+PUT    | `/articles/:id`  | YES  | Update Article
+DELETE | `/articles/:id`  | YES  | Delete Article
