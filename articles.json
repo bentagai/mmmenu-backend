@@ -1,0 +1,39 @@
+{
+  "img_url": [
+    {
+      ""
+    }
+  ]
+  "title": ""
+}
+
+const articleSchema = new mongoose.Schema({
+  img_url: [{
+    type: String,
+    required: true
+  }],
+  title: {
+    type: String,
+    required: true
+  },
+  subtitle: {
+    type: String,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true
+  },
+  tags: [{
+    type: String,
+    required: true
+  }],
+  comments: [commentSchema]
+})
+
+const articleModel = mongoose.model('article', articleSchema)
+module.exports = articleModel
