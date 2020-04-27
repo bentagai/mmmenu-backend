@@ -9,7 +9,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
+  createdAt: {
     type: Date,
     required: true
   }
@@ -32,7 +32,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
+  createdAt: {
     type: Date,
     required: true
   },

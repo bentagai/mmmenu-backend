@@ -62,21 +62,21 @@ KEY        | TYPE                   | REFERENCE     | REQUIRED | VALIDATIONS    
 name       | string                 |               | yes      |                          |
 email      | string                 |               | yes      | RegExp                   |
 password   | string                 |               | yes      | min 6                    |
-favourites | array  ref 'articles'  | articles      |          |                          |
+favourites | [ObjectId]             | articles      |          |                          |
 
 
 ## Articles
 
 KEY         | TYPE          | EMBEDED        | REQUIRED |
 ------------|---------------|----------------|----------|
-img_url     | array         |                | yes      |
+img_url     | [String]      |                | yes      |
 title       | string        |                | yes      |
 subtitle    | string        |                | yes      |
 text        | string        |                | yes      |
-date        | date          |                | yes      |
+created_at  | date          |                | yes      |
 address     | string        |                |          |
-tags        | array         |                | yes      |
-comments    | array         | commentSchema  |          |
+tags        | [String]      |                | yes      |
+comments    | [ObjectId]    | comments       |          |
 
 ## Comments
 
@@ -84,7 +84,7 @@ KEY         | TYPE           | REFERENCE | REQUIRED |   DEFAULT    |
 ------------|----------------|-----------|----------|--------------|
 user        | ObjectId       | Users     | yes      | current_user |
 text        | string         |           | yes      |              |
-date        | date           |           | yes      |              |
+created_at  | date           |           | yes      |              |
 
 # API ROUTES
 Port will be defined in .env file.

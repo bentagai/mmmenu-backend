@@ -9,17 +9,17 @@ module.exports = {
 }
 
 function signup (req, res) {
-  const hashedPwd = bcrypt.hashSync(req.body.user_password, 10)
+  const hashedPwd = bcrypt.hashSync(req.body.password, 10)
   const userBody = {
-    name: req.body.user_name,
-    email: req.body.user_email,
+    name: req.body.name,
+    email: req.body.email,
     password: hashedPwd
   }
 
   UserModel
     .create(userBody)
     .then(() => {
-      const userData = { username: req.body.user_name, email: req.body.user_email }
+      const userData = { username: req.body.name, email: req.body.email }
 
       const token = jwt.sign(
         userData,
@@ -36,13 +36,13 @@ function signup (req, res) {
 
 function login (req, res) {
   UserModel
-    .findOne({ email: req.body.user_email })
+    .findOne({ email: req.body.email })
     .then(user => {
       if (!user) { return res.json({ error: 'wrong email' }) }
 
-      bcrypt.compare(req.body.user_password, user.password, (err, result) => {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) { handleError(err) }
-        if (!result) { return res.json({ error: `wrong password for ${req.body.user_email}` }) }
+        if (!result) { return res.json({ error: `wrong password for ${req.body.email}` }) }
 
         const userData = { username: user.name, email: user.email }
 
