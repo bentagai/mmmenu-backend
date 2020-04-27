@@ -1,5 +1,8 @@
 # mmmenu-backend
 
+Project Description:
+Mmenu is a leisure guide to Gran Canaria, which helps you discover the best plans on the island, where to eat or buy.
+
 ## Project setup
 ```
 npm install
@@ -29,47 +32,80 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 # user stories
-Diferenciamos entre usuarios registrado y no registrados.
 
-Características de una cuenta de usuario:
+We differentiate between registered and unregistered users.
+
+Characteristics of a user account:
 - Users can signup.
 - Users can delete account.
 - Users can login.
 - Users can logout.
 
-Los usuarios no registrados pueden:
-- Leer artículos y sus comentarios.
-- Buscar y filtrar por tags y subcategorías.
-- Usar el mapa para ver las localizaciones de los sitios publicados.
+Unregistered users can:
+- Read articles and their comments.
+- Search and filter by tags and subcategories.
+- Use the map to see the locations of the published sites.
 
-Los usuario registrado pueden:
+Registered users can:
+- Read articles.
+- Add and edit comments in an article.
+- Save an article as a favorite.
+- See a map with all the locations of the published sites.
+- Search and filter by tags and subcategories.
 
-- Leer artículos.
-- Añadir y editar comentarios en un artículo.
-- Guardar un artículo como favorito.
-- Ver un mapa con todas las localizaciones de los sitios publicados.
-- Buscar y filtrar por tags y subcategorías.
+# DB Schemas
 
-## API ROUTES
+## Users
+
+KEY        | TYPE                                   | REQUIRED | VALIDATIONS              |
+-----------|----------------------------------------|----------|--------------------------|
+name       | string                                 | yes      |                          |
+email      | string                                 | yes      | RegExp                   |
+password   | string                                 | yes      | min 6                    |
+favourites | array  ref 'articles'
+
+
+## Articles
+
+KEY         | TYPE           | REQUIRED
+------------|--------------- | ----
+img_url     | array          | yes
+title       | string         | yes
+subtitle    | string         | yes
+text        | string         | yes
+date        | date           | yes
+address     | string
+tags        | array          | yes
+[comments]  | array 
+
+## Comments
+
+KEY         | TYPE           | REQUIRED |   DEFAULT    |
+------------|--------------- | ---------|--------------|
+user_id     | ObjectId       | yes      | current_user |
+text        | string         | yes      |              |
+date        | date           | yes      |              |
+
+# API ROUTES
 Please note that all routes in this API should be called with the `/api` prefix before the endpoint:
 ```
 POST http://localhost:3000/api/auth/signup
 ```
-### AUTHENTICATION ENDPOINTS
+## AUTHENTICATION ENDPOINTS
 
 METHOD | URL                | What does it do
 -------|--------------------|---------------------------------
 POST   | `auth/signup`      | Create a new account
 POST   | `auth/login`       | Authenticates a user
 
-### ARTICLE ENDPOINTS
+## ARTICLE ENDPOINTS
 
 METHOD | URL                    | What does it do
 -------|------------------------|---------------------------------
 GET    | `articles`             | Get All Articles
 GET    | `articles/:articleId`  | Read One Article
 
-### ADMIN ENDPOINTS (Authenticated)
+## ADMIN ENDPOINTS (Authenticated)
 
 All these endpoints require a `token` to be sent within the HTTP Headers.
 METHOD | URL                          | What does it do
@@ -78,22 +114,20 @@ POST   | `admin/articles`             | Create Article
 PUT    | `admin/articles/:articleId`  | Update Article
 DELETE | `admin/articles/:articleId`  | Delete Article
 
-### USER ENDPOINTS (Authenticated)
+## USER ENDPOINTS (Authenticated)
 
 All these endpoints require a `token` to be sent within the HTTP Headers.
-METHOD | URL                          | What does it do
--------|------------------------------|---------------------------------
-POST   | `me/favourites/:articleId`   | Add article to user favourites.
-GET    | `me/favourites`              | Show all favourites user articles.
-GET    | `me/favourites/:articleId`   | Read one favourite article.
-DELETE | `me/favourites/:articleId`   | Remove article from favourites.
+METHOD | URL                                                         | What does it do
+-------|-------------------------------------------------------------|---------------------------------
+POST   | `me/favourites/:articleId`                                  | Add article to user favourites.
+GET    | `me/favourites`                                             | Show all favourites user articles.
+GET    | `me/favourites/:articleId`                                  | Read one favourite article.
+DELETE | `me/favourites/:articleId`                                  | Remove article from favourites.
 
-POST   | `me/articles/:articleId/comments`              | Add comment to an article.
-PUT    | `me/articles/:articleId/comments/:commentId`   | Update comment.
-DELETE | `me/articles/:articleId/comments/:commentId`   | Delete comment.
+POST   | `me/articles/:articleId/comments`                           | Add comment to an article.
+PUT    | `me/articles/:articleId/comments/:commentId`                | Update comment.
+DELETE | `me/articles/:articleId/comments/:commentId`                | Delete comment.
 
-
-/// Wishlist
-GET    | `me/profile`                 | Get info from User
-PUT    | `me/profile`                 | Modify User info
-DELETE | `me/profile`                 | Delete user account
+GET    | `me/profile`                                                | Get info from User
+PUT    | `me/profile`                                                | Modify User info
+DELETE | `me/profile`                                                | Delete user account
