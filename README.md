@@ -57,37 +57,39 @@ Registered users can:
 
 ## Users
 
-KEY        | TYPE                                   | REQUIRED | VALIDATIONS              |
------------|----------------------------------------|----------|--------------------------|
-name       | string                                 | yes      |                          |
-email      | string                                 | yes      | RegExp                   |
-password   | string                                 | yes      | min 6                    |
-favourites | array  ref 'articles'
+KEY        | TYPE                   | REFERENCE     | REQUIRED | VALIDATIONS              |
+-----------|------------------------|---------------|----------|--------------------------|
+name       | string                 |               | yes      |                          |
+email      | string                 |               | yes      | RegExp                   |
+password   | string                 |               | yes      | min 6                    |
+favourites | array  ref 'articles'  | articles      |          |                          |
 
 
 ## Articles
 
-KEY         | TYPE           | REQUIRED
-------------|--------------- | ----
-img_url     | array          | yes
-title       | string         | yes
-subtitle    | string         | yes
-text        | string         | yes
-date        | date           | yes
-address     | string
-tags        | array          | yes
-[comments]  | array 
+KEY         | TYPE          | EMBEDED        | REQUIRED |
+------------|---------------|----------------|----------|
+img_url     | array         |                | yes      |
+title       | string        |                | yes      |
+subtitle    | string        |                | yes      |
+text        | string        |                | yes      |
+date        | date          |                | yes      |
+address     | string        |                |          |
+tags        | array         |                | yes      |
+comments    | array         | commentSchema  |          |
 
 ## Comments
 
-KEY         | TYPE           | REQUIRED |   DEFAULT    |
-------------|--------------- | ---------|--------------|
-user_id     | ObjectId       | yes      | current_user |
-text        | string         | yes      |              |
-date        | date           | yes      |              |
+KEY         | TYPE           | REFERENCE | REQUIRED |   DEFAULT    |
+------------|----------------|-----------|----------|--------------|
+user        | ObjectId       | Users     | yes      | current_user |
+text        | string         |           | yes      |              |
+date        | date           |           | yes      |              |
 
 # API ROUTES
-Please note that all routes in this API should be called with the `/api` prefix before the endpoint:
+Port will be defined in .env file.
+````
+Please note that all routes in this API should be called with the `/api` prefix before the endpoint, for example:
 ```
 POST http://localhost:3000/api/auth/signup
 ```
@@ -121,13 +123,10 @@ METHOD | URL                                                         | What does
 -------|-------------------------------------------------------------|---------------------------------
 POST   | `me/favourites/:articleId`                                  | Add article to user favourites.
 GET    | `me/favourites`                                             | Show all favourites user articles.
-GET    | `me/favourites/:articleId`                                  | Read one favourite article.
 DELETE | `me/favourites/:articleId`                                  | Remove article from favourites.
-
 POST   | `me/articles/:articleId/comments`                           | Add comment to an article.
 PUT    | `me/articles/:articleId/comments/:commentId`                | Update comment.
 DELETE | `me/articles/:articleId/comments/:commentId`                | Delete comment.
-
 GET    | `me/profile`                                                | Get info from User
 PUT    | `me/profile`                                                | Modify User info
 DELETE | `me/profile`                                                | Delete user account
