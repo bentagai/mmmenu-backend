@@ -14,8 +14,8 @@ const articleSchema = new mongoose.Schema({
     required: true
   },
   created_at: {
-    type: Number,
-    default: Date.now() // Es automático?
+    type: Date,
+    default: Date.now()
   }
 })
 
