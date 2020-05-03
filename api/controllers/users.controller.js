@@ -17,21 +17,21 @@ function getAllUsers (req, res) {
 
 function getUserById (req, res) {
   UserModel
-    .findById(req.params.id)
+    .findById(res.locals.user._id)
     .then(response => res.json(response))
     .catch((err) => handleError(err, res))
 }
 
 function deleteUserById (req, res) {
   UserModel
-    .remove({ _id: req.params.id })
+    .remove({ _id: res.locals.user._id })
     .then(response => res.json(response))
     .catch(err => handleError(err, res))
 }
 
 function updateUser (req, res) {
   UserModel
-    .findByIdAndUpdate(req.params.id, req.body, {
+    .findByIdAndUpdate(res.locals.user._id, req.body, {
       new: true,
       runValidators: true
     })
