@@ -1,16 +1,17 @@
 const router = require('express').Router()
 
-const usersRouter = require('./users.router')
+const articleRouter = require('./articles.router')
 const authRouter = require('./auth.router')
-const todosRouter = require('./todos.router')
+const userRouter = require('./users.router')
+
 const { authUser } = require('../utils') // Authenticated Route
 
-router.use('/users', usersRouter)
 router.use('/auth', authRouter)
-router.use('/todos', todosRouter)
+router.use('/article', articleRouter)
+router.use('/users', userRouter)
 
-router.get('/whoami', authUser, (req, res) => {
-  res.send(`hi there! ${res.locals.user.name}`)
+router.get('/me', authUser, (req, res) => {
+  res.json({ user: res.locals.user })
 })
 
 module.exports = router
