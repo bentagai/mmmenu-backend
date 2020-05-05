@@ -9,6 +9,9 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  // img_url: [{
+  //   type: String
+  // }],
   text: {
     type: String,
     required: true
