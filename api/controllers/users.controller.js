@@ -8,7 +8,10 @@ module.exports = {
   getUserById,
   deleteUserById,
   updateUser,
-  updateUserPassword
+  updateUserPassword,
+  addFavouriteToUser,
+  getAllFavourites,
+  deleteFavourite
 }
 
 function getAllUsers (req, res) {
@@ -82,4 +85,39 @@ function updateUserPassword(req, res) {
     })
     .then(response => res.json(response))
     .catch((err) => handleError(err, res))
+}
+
+function addFavouriteToUser(req, res) {
+  const favourite = req.params.id
+  UserModel
+    .findById(res.locals.user._id)
+    .then(user => {
+      user.favourites.push(favourite);
+      user.save()
+        .then(user => res.json(user))
+        .catch(err => handleError(err, res))
+    })
+    .catch(err => handleError(err, res))
+}
+
+function getAllFavourites(req, res) {
+  UserModel
+    .findById(res.locals.user._id)
+    .populate('favourites')
+    .then(user => res.json(user.favourites))
+    .catch(err => handleError(err, res))
+}
+
+function deleteFavourite(req, res) {
+  const favourite = req.params.id
+  UserModel
+    .findById(res.locals.user._id)
+    .then(user => {
+      const idxFavourite = user.favourites.indexOf(favourite)
+      user.favourites.splice(idxFavourite, 1)
+      user.save()
+        .then(user => res.json(user))
+        .catch(err => handleError(err, res))
+    })
+    .catch(err => handleError(err, res))
 }

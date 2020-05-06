@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  favourites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'article'
+  }],
   is_admin: {
     type: Boolean,
     default: false
