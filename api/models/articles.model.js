@@ -9,6 +9,10 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    enum: ['comer', 'comprar', 'hacer']
+  },
   // img_url: [{
   //   type: String
   // }]
