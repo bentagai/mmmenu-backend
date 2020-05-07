@@ -79,7 +79,7 @@ created_at  | date          |          |
 
 # API ROUTES
 Port will be defined in .env file
-````
+
 Please note that all routes in this API should be called with the `/api` prefix before the endpoint, for example:
 ```
 POST http://localhost:3000/api/auth/signup
