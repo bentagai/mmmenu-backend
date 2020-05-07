@@ -86,7 +86,7 @@ POST http://localhost:3000/api/auth/signup
 ```
 
 ## AUTHENTICATION ENDPOINTS
-> token required: NO
+token required: NO
 METHOD | URL                | What does it do
 -------|--------------------|---------------------------------
 POST   | 'auth/signup'      | Create a new account
