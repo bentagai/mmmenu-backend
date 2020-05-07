@@ -13,9 +13,9 @@ const articleSchema = new mongoose.Schema({
     type: String,
     enum: ['comer', 'comprar', 'hacer']
   },
-  // img_url: [{
-  //   type: String
-  // }]
+  img_url: [{
+    type: String
+  }],
   text: {
     type: String,
     required: true
