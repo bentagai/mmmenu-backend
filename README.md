@@ -89,29 +89,29 @@ POST http://localhost:3000/api/auth/signup
 > token required: NO
 METHOD | URL                | What does it do
 -------|--------------------|---------------------------------
-POST   | `auth/signup`      | Create a new account
-POST   | `auth/login`       | Authenticates a user
+POST   | 'auth/signup'      | Create a new account
+POST   | 'auth/login'       | Authenticates a user
 
 ## ARTICLE ENDPOINTS
 
 METHOD | URL              | AUTH | What does it do
 -------|------------------|------|---------------------------
-GET    | `/articles`      | NO   | Get All Articles
-POST   | `/articles`      | YES  | Create Article
-GET    | `/articles/:id`  | NO   | Read One Article
-PUT    | `/articles/:id`  | YES  | Update Article
-DELETE | `/articles/:id`  | YES  | Delete Article
+GET    | '/articles'      | NO   | Get All Articles
+POST   | '/articles'      | YES  | Create Article
+GET    | '/articles/:id'  | NO   | Read One Article
+PUT    | '/articles/:id'  | YES  | Update Article
+DELETE | '/articles/:id'  | YES  | Delete Article
 
 ## USERS ENDPOINTS
 
 METHOD | URL                  | AUTH | What does it do
 -------|----------------------|------|---------------------------
-GET    | `/`                  | NO   | Get All Users
-GET    | `/me`                | YES  | Get A User
-PUT    | `/me`                | YES  | Update User
-PUT    | `/me/password`       | YES  | Update User Password    
-DELETE | `/me`                | YES  | Delete User
-GET    | `/me/favourites/`    | YES  | Get User's favourites
-POST   | `/me/favourites/:id` | YES  | Add a favourite
-DELETE | `/me/favourites/:id` | YES  | Delete a favourite
+GET    | '/'                  | NO   | Get All Users
+GET    | '/me'                | YES  | Get A User
+PUT    | '/me'                | YES  | Update User
+PUT    | '/me/password'       | YES  | Update User Password    
+DELETE | '/me'                | YES  | Delete User
+GET    | '/me/favourites/'    | YES  | Get User's favourites
+POST   | '/me/favourites/:id' | YES  | Add a favourite
+DELETE | '/me/favourites/:id' | YES  | Delete a favourite
 
