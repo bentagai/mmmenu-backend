@@ -1,7 +1,7 @@
 # mmmenu-backend
 
 Project Description:
-Mmenu is a leisure guide to Gran Canaria, which helps you discover the best plans on the island, where to eat or buy.
+GCExplorer is a leisure guide to Gran Canaria, which helps you discover the best plans on the island, where to eat or buy.
 
 ## Project setup
 ```
@@ -62,40 +62,56 @@ KEY        | TYPE                   | REFERENCE     | REQUIRED | VALIDATIONS    
 name       | string                 |               | yes      |                          |
 email      | string                 |               | yes      | RegExp                   |
 password   | string                 |               | yes      | min 6                    |
-is_admin   | boolean | | | default: false |
+favourites | objectId               |  Articles     | no       |                          |
+is_admin   | boolean                |               |          | default: false           |
 
 ## Articles
 
-KEY         | TYPE          | EMBEDED        | REQUIRED |
-------------|---------------|----------------|----------|
-title       | string        |                | yes      |
-subtitle    | string        |                | yes      |
-text        | string        |                | yes      |
-created_at  | date          |                |          |
-address     | string        |                |          |
+KEY         | TYPE          | REQUIRED |
+------------|---------------|----------|
+title       | string        | yes      |
+subtitle    | string        | yes      |
+category    | string        | yes      |
+img_url     | string        | yes      |
+text        | string        | yes      |
+created_at  | date          |          |
 
 
 # API ROUTES
-Port will be defined in .env file.
-````
+Port will be defined in .env file
+
 Please note that all routes in this API should be called with the `/api` prefix before the endpoint, for example:
 ```
 POST http://localhost:3000/api/auth/signup
 ```
 
 ## AUTHENTICATION ENDPOINTS
-> token required: NO
+token required: NO
 METHOD | URL                | What does it do
 -------|--------------------|---------------------------------
-POST   | `auth/signup`      | Create a new account
-POST   | `auth/login`       | Authenticates a user
+POST   | 'auth/signup'      | Create a new account
+POST   | 'auth/login'       | Authenticates a user
 
 ## ARTICLE ENDPOINTS
 
 METHOD | URL              | AUTH | What does it do
 -------|------------------|------|---------------------------
-GET    | `/articles`      | NO   | Get All Articles
-POST   | `/articles`      | YES  | Create Article
-GET    | `/articles/:id`  | NO   | Read One Article
-PUT    | `/articles/:id`  | YES  | Update Article
-DELETE | `/articles/:id`  | YES  | Delete Article
+GET    | '/articles'      | NO   | Get All Articles
+POST   | '/articles'      | YES  | Create Article
+GET    | '/articles/:id'  | NO   | Read One Article
+PUT    | '/articles/:id'  | YES  | Update Article
+DELETE | '/articles/:id'  | YES  | Delete Article
+
+## USERS ENDPOINTS
+
+METHOD | URL                  | AUTH | What does it do
+-------|----------------------|------|---------------------------
+GET    | '/'                  | NO   | Get All Users
+GET    | '/me'                | YES  | Get A User
+PUT    | '/me'                | YES  | Update User
+PUT    | '/me/password'       | YES  | Update User Password    
+DELETE | '/me'                | YES  | Delete User
+GET    | '/me/favourites/'    | YES  | Get User's favourites
+POST   | '/me/favourites/:id' | YES  | Add a favourite
+DELETE | '/me/favourites/:id' | YES  | Delete a favourite
+

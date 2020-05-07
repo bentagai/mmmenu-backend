@@ -17,11 +17,25 @@ function createArticle (req, res) {
     .catch((err) => handleError(err, res))
 }
 
-function getAllArticles (req, res) {
-  ArticleModel
-    .find()
-    .then(response => res.json(response))
-    .catch((err) => handleError(err, res))
+function getAllArticles(req, res) {
+  const query = req.query.search
+
+  if (query === undefined || query === '') {
+    ArticleModel
+      .find()
+      .then(response => res.json(response))
+      .catch((err) => handleError(err, res))
+  } else {
+    ArticleModel
+      .find({
+        category: {
+          $regex: query,
+          $options: 'i'
+        }
+      })
+      .then(response => res.json(response))
+      .catch((err) => handleError(err, res))
+  }
 }
 
 function getArticleById (req, res) {

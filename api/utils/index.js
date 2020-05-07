@@ -17,6 +17,15 @@ function authUser (req, res, next) {
   }
 }
 
+// Authenticate admin Middlewatre
+function authAdmin(req, res, next) {
+  if (res.locals.user.is_admin === false) {
+    res.status(403).json({ error: 'Is not an admin' })
+  } else {
+    next()
+  }
+}
+
 // Return HTTP error with details in JSON
 function handleError (err, res) {
   return res.status(400).json(err)
@@ -24,5 +33,6 @@ function handleError (err, res) {
 
 module.exports = {
   authUser,
-  handleError
+  handleError,
+  authAdmin
 }
